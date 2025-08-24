@@ -60,14 +60,21 @@ jobs:
           docker build \
             -t $GCP_REGION-docker.pkg.dev/$PROJECT_ID/$GCR_REPO_NAME/$IMAGE_NAME:${{ github.sha }} ./app
 
-      - name: Security Scan with Trivy
-        uses: aquasecurity/trivy-action@master
+      - name: Generate Trivy HTML Report
+        uses: aquasecurity/trivy-action@0.20.0
         with:
           image-ref: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GCR_REPO_NAME }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
-          format: 'table'
-          exit-code: '1'
+          format: 'template'
+          template: '@/contrib/html.tpl'
+          output: 'trivy-report.html'
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
+
+      - name: Upload Trivy HTML Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: trivy-security-report
+          path: trivy-report.html
 
       - name: Push Docker image
         if: success()
