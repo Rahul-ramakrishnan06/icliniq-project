@@ -7,7 +7,11 @@ resource "google_project_service" "required_apis" {
     "servicenetworking.googleapis.com",
     "iam.googleapis.com",
     "cloudresourcemanager.googleapis.com",
-    "secretmanager.googleapis.com"
+    "secretmanager.googleapis.com",
+    "monitoring.googleapis.com",
+    "logging.googleapis.com",
+    "serviceusage.googleapis.com",
+    
   ])
   project = local.project_id
   service = each.key

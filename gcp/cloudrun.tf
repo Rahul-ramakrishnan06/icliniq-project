@@ -28,6 +28,16 @@ resource "google_cloud_run_service" "default" {
           }
         }
 
+        env {
+          name = "DB_NAME"
+          value = local.db_name
+        }
+
+        env {
+          name = "DB_HOST"
+          value = module.sql_db.private_ip_address
+        }
+
         resources {
           limits = {
             cpu    = "1"

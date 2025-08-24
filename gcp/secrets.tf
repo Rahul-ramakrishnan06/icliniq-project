@@ -15,12 +15,12 @@ resource "google_secret_manager_secret_version" "db_user_version" {
 }
 
 resource "random_password" "db_password" {
-  length           = 16   # Password length
-  special          = true # Include special chars
+  length           = 16   
+  special          = true 
   upper            = true
   lower            = true
   numeric          = true
-  override_special = "_%@!" # Safe special chars for DBs
+  override_special = "_%@!" 
 }
 
 # DB Password Secret

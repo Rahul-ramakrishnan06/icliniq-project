@@ -17,7 +17,7 @@ locals {
 
   db_user = "admin"
 
-  db_name = "icliniq-db"
+  db_name = "postgres"
 
   db_host = "10.0.0.0/16"
 
@@ -26,5 +26,9 @@ locals {
   db_tier = "db-f1-micro"
 
   tf_state_bucket = "icliniq-state-bucket"
+
+  slack_channel_name = "icliniq_alerts" 
+
+  email_alert = "rahulkarthi06.02@gmail.com"
 
 }
