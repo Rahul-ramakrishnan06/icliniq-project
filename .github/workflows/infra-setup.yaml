@@ -73,3 +73,11 @@ jobs:
         with:
           working_directory: gcp
           sarif_file: tfsec-results.sarif
+
+      - name: Terraform Plan
+        working-directory: gcp
+        run: terraform plan -out=tfplan -var="slack_token=${{secrets.SLACK_TOKEN}}"
+
+      - name: Terraform Apply
+        working-directory: gcp
+        run: terraform apply -auto-approve -var="slack_token=${{secrets.SLACK_TOKEN}}"

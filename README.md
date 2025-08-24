@@ -140,7 +140,7 @@ Alerting is configured in **gcp/monitoring.tf** using **Google Cloud Monitoring*
 
 ---
 
-## 📂 Folder Structure
+## Folder Structure
 ```
 icliniq-project/
 ├── app/                   # Node.js backend app
