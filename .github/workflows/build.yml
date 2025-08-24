@@ -65,11 +65,10 @@ jobs:
           tflint --init
           tflint
 
-      - name: Run tfsec Security Scan
-        uses: aquasecurity/tfsec-action@v1.0.4
+      - name: Run tfsec + upload SARIF
+        uses: aquasecurity/tfsec-sarif-action@v0.1.4
         with:
           working_directory: gcp
-          format: sarif
           sarif_file: tfsec-results.sarif
 
       - name: Use Node.js
