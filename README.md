@@ -46,6 +46,9 @@ docker push gcr.io/<PROJECT_ID>/icliniq-node-app:latest
 ```
 
 ### **4. Deploy Infrastructure (Terraform)**
+
+Note: GCP bucket need to be provisioned manualy for storing terraform state files.
+
 ```bash
 cd ../gcp
 
@@ -86,7 +89,7 @@ branch: master only
 | Area                 | Implementation |
 |----------------------|----------------|
 | **Secrets**         | Stored securely in **GCP Secret Manager** and injected at runtime. |
-| **CI/CD Security**  | Uses **OIDC authentication** with workload identity federation. |
+| **CI/CD Security**  | Uses **service account** to interact with GCP services. |
 | **Docker Scans**    | Integrated **Trivy** to scan for vulnerabilities during CI/CD. |
 | **IAM Policies**    | Terraform sets **least privilege** IAM roles for services. |
 | **Transport Security** | Cloud Run automatically provisions HTTPS. |
