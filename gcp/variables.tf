@@ -1,15 +1,3 @@
-variable "region" {
-  description = "GCP Region"
-  type        = string
-  default     = "us-central1"
-}
-
-variable "vpc_name" {
-  description = "VPC Network Name"
-  type        = string
-  default     = "my-secure-vpc"
-}
-
 # variable "db_instance_name" {
 #   description = "Cloud SQL Instance Name"
 #   type        = string

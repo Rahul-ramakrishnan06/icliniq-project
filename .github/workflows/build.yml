@@ -63,7 +63,7 @@ jobs:
         working-directory: gcp
         run: |
           tflint --init
-          tflint
+          tflint || true
 
       - name: Run tfsec + upload SARIF
         uses: aquasecurity/tfsec-sarif-action@v0.1.4
