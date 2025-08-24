@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "echo \"No tests configured\" && exit 0"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
