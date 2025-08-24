@@ -20,7 +20,6 @@ resource "google_cloud_run_service" "default" {
       containers {
         image = "${local.region}-docker.pkg.dev/${local.project_id}/${local.artifact_repo}/${local.image_name}:latest"
 
-                # DB User Secret
         env {
           name = "DB_USER"
           value_from {
@@ -55,8 +54,8 @@ resource "google_cloud_run_service" "default" {
       annotations = {
         "run.googleapis.com/vpc-access-connector" = google_vpc_access_connector.serverless_vpc.name
         "run.googleapis.com/vpc-access-egress"    = "all-traffic"
-        "autoscaling.knative.dev/minScale"       = "0"
-        "autoscaling.knative.dev/maxScale"       = "5"
+        "autoscaling.knative.dev/minScale"        = "0"
+        "autoscaling.knative.dev/maxScale"        = "5"
       }
     }
   }

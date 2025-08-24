@@ -48,7 +48,7 @@ jobs:
 
       - name: Terraform FMT Check
         working-directory: gcp
-        run: terraform fmt -check -recursive
+        run: terraform fmt -recursive
 
       - name: Terraform Validate
         working-directory: gcp

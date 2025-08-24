@@ -24,23 +24,23 @@ module "vpc_network" {
   subnets = [
     {
       subnet_name           = "${local.vpc_name}-public"
-      subnet_ip            = "10.0.1.0/24"
-      subnet_region        = local.region
+      subnet_ip             = "10.0.1.0/24"
+      subnet_region         = local.region
       subnet_private_access = "false"
-      description         = "Public Subnet"
+      description           = "Public Subnet"
     },
     {
       subnet_name           = "${local.vpc_name}-private"
-      subnet_ip            = "10.0.2.0/24"
-      subnet_region        = local.region
+      subnet_ip             = "10.0.2.0/24"
+      subnet_region         = local.region
       subnet_private_access = "true"
-      description         = "Private Subnet for Cloud SQL"
+      description           = "Private Subnet for Cloud SQL"
     }
   ]
 
   secondary_ranges = {}
 
-  depends_on = [ google_project_service.required_apis ]
+  depends_on = [google_project_service.required_apis]
 }
 
 

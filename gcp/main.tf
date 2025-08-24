@@ -8,8 +8,8 @@ terraform {
   }
 
   backend "gcs" {
-    bucket      = "icliniq-state-bucket"
-    prefix      = "envs/prod" 
+    bucket = "icliniq-state-bucket"
+    prefix = "envs/prod"
   }
 }
 

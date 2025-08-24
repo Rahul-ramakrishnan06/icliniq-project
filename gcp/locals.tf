@@ -4,7 +4,7 @@ locals {
 
   region = "asia-south1"
 
-  vpc_name = "icliniq-vpc"
+  vpc_name   = "icliniq-vpc"
   project_id = "icliniq-project"
 
   artifact_repo = "${local.project_id}-registry"
