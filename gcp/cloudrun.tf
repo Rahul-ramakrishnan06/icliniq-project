@@ -1,14 +1,3 @@
-resource "google_service_account" "runtime" {
-  account_id   = "${local.service_name}-sa"
-  display_name = "Service Account for ${local.service_name}"
-  project      = local.project_id
-}
-resource "google_project_iam_member" "secret_accessor" {
-  project = local.project_id
-  role    = "roles/secretmanager.secretAccessor"
-  member  = "serviceAccount:${google_service_account.runtime.email}"
-}
-
 
 resource "google_cloud_run_service" "default" {
   name     = local.service_name

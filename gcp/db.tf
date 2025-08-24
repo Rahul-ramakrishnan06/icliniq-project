@@ -41,7 +41,6 @@ resource "google_service_networking_connection" "private_vpc_connection" {
   reserved_peering_ranges = [google_compute_global_address.private_ip.name]
 }
 
-# Reserve a private IP range for Cloud SQL
 resource "google_compute_global_address" "private_ip" {
   name          = "cloudsql-private-ip"
   purpose       = "VPC_PEERING"
