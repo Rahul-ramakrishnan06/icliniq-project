@@ -32,3 +32,11 @@ resource "google_storage_bucket_iam_member" "backend_bucket_access" {
   member = "serviceAccount:${values(module.github_actions_sa.emails)[0]}"
 }
 
+resource "google_project_iam_member" "github_actions_run_admin" {
+  project = local.project_id
+  role    = "roles/run.admin"
+  member  = "serviceAccount:${values(module.github_actions_sa.emails)[0]}"
+}
+
+
+
