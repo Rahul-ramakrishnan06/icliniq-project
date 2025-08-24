@@ -91,7 +91,35 @@ resource "google_monitoring_alert_policy" "cpu_crit" {
         EOT
       comparison      = "COMPARISON_GT"
       threshold_value = 0.80
-      duration        = "120s"
+      duration        = "60s"
+
+      aggregations {
+        alignment_period   = "60s"
+        per_series_aligner = "ALIGN_PERCENTILE_99"
+        cross_series_reducer = "REDUCE_MEAN"
+      }
+    }
+  }
+}
+
+#test alert
+resource "google_monitoring_alert_policy" "cpu_test" {
+  display_name          = "Cloud Run CPU is higher than 80% (test)"
+  combiner             = "OR"
+  notification_channels = [google_monitoring_notification_channel.email.id,google_monitoring_notification_channel.slack.id]
+
+  conditions {
+    display_name = "CPU > 80%"
+
+    condition_threshold {
+      filter = <<EOT
+        metric.type="run.googleapis.com/container/cpu/utilizations"
+        resource.type="cloud_run_revision"
+        resource.labels.service_name="${local.service_name}"
+        EOT
+      comparison      = "COMPARISON_GT"
+      threshold_value = 0.080
+      duration        = "60s"
 
       aggregations {
         alignment_period   = "60s"
