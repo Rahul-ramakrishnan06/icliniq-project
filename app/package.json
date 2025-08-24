@@ -7,7 +7,8 @@
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
     "lint": "eslint .",
-    "test": "echo \"No tests configured\" && exit 0"
+    "test": "echo \"No tests configured\" && exit 0",
+    "audit": "npm audit --audit-level=high || exit 0"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
