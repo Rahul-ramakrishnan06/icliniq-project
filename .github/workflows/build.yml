@@ -12,6 +12,8 @@ env:
   IMAGE_NAME: icliniq-node-app
   TF_BUCKET: ${{ secrets.TF_BUCKET }} # <-- GCS bucket for TF state
   TF_PREFIX: terraform/state 
+  SERVICE_NAME: icliniq-project-cloud-run
+  
 
 jobs:
   build-and-push:
