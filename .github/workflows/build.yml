@@ -32,10 +32,33 @@ jobs:
       - name: Configure Docker to use gcloud
         run: gcloud auth configure-docker $GCP_REGION-docker.pkg.dev --quiet
 
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: app/package-lock.json
+
+      - name: Install deps
+        working-directory: app
+        run: npm ci
+
+      - name: Lint
+        working-directory: app
+        run: npm run lint
+
+      - name: Unit tests
+        working-directory: app
+        run: npm test
+
+      - name: SAST (npm audit)
+        working-directory: app
+        run: npm run audit
+
       - name: Build Docker image
         run: |
           docker build \
-            -t $GCP_REGION-docker.pkg.dev/$PROJECT_ID/$GCR_REPO_NAME/$IMAGE_NAME:${{ github.sha }} .
+            -t $GCP_REGION-docker.pkg.dev/$PROJECT_ID/$GCR_REPO_NAME/$IMAGE_NAME:${{ github.sha }} ./app
 
       - name: Push Docker image
         run: |
