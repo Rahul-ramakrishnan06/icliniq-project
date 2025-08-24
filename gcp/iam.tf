@@ -33,6 +33,6 @@ resource "google_project_iam_member" "github_actions_run_admin" {
 
 resource "google_service_account_iam_member" "allow_github_to_act_as_cloudrun_sa" {
   service_account_id = google_service_account.runtime.name
-  role              = "roles/iam.serviceAccountUser"
-  member            = "serviceAccount:${values(module.github_actions_sa.emails)[0]}"
+  role               = "roles/iam.serviceAccountUser"
+  member             = "serviceAccount:${values(module.github_actions_sa.emails)[0]}"
 }

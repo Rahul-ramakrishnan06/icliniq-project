@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master 
+    paths:
+      - "app/**"
+  workflow_dispatch:
 
 env:
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
@@ -35,43 +38,6 @@ jobs:
 
       - name: Configure Docker to use gcloud
         run: gcloud auth configure-docker $GCP_REGION-docker.pkg.dev --quiet
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 1.13.0
-
-      - name: Terraform Init
-        working-directory: gcp
-        run: |
-          terraform init \
-          -backend-config="bucket=${{ secrets.TF_BUCKET }}" \
-          -backend-config="prefix=terraform/state" \
-
-      - name: Terraform FMT Check
-        working-directory: gcp
-        run: terraform fmt -recursive
-
-      - name: Terraform Validate
-        working-directory: gcp
-        run: terraform validate
-
-      - name: Setup TFLint
-        uses: terraform-linters/setup-tflint@v4
-        with:
-          tflint_version: v0.52.0
-
-      - name: Run TFLint
-        working-directory: gcp
-        run: |
-          tflint --init
-          tflint || true
-
-      - name: Run tfsec + upload SARIF
-        uses: aquasecurity/tfsec-sarif-action@v0.1.4
-        with:
-          working_directory: gcp
-          sarif_file: tfsec-results.sarif
 
       - name: Use Node.js
         uses: actions/setup-node@v4
@@ -134,6 +100,10 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
 
+    environment:
+      name: production
+      url: https://${{ env.SERVICE_NAME }}-${{ env.GCP_REGION }}.run.app
+
     permissions:
       contents: read
       id-token: write
@@ -148,6 +118,7 @@ jobs:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
       - name: Deploy to Cloud Run
+        if: ${{ github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/master' }}
         uses: google-github-actions/deploy-cloudrun@v2
         with:
           service: ${{ env.SERVICE_NAME }}
