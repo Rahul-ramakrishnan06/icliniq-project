@@ -11,7 +11,7 @@ on:
 env:
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
   GCP_REGION: ${{ secrets.GCP_REGION }}             
-  TF_BUCKET: ${{ secrets.TF_BUCKET }} # <-- GCS bucket for TF state
+  TF_BUCKET: ${{ secrets.TF_BUCKET }} 
   TF_PREFIX: terraform/state 
   SERVICE_NAME: icliniq-project-cloud-run
   

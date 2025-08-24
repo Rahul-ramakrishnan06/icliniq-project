@@ -10,7 +10,7 @@ router.get("/health", (req, res) => {
 router.get("/users", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM users");
-    res.json(result.rows); // use rows directly
+    res.json(result.rows); 
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -23,7 +23,7 @@ router.post("/users", async (req, res) => {
       "INSERT INTO users (name, email) VALUES ($1, $2) RETURNING id, name, email",
       [name, email]
     );
-    res.status(201).json(result.rows[0]); // returning inserted row
+    res.status(201).json(result.rows[0]); 
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -68,8 +68,8 @@ function runWorker(durationMs, loadPercent) {
 }
 
 router.get("/cpu-load", async (req, res) => {
-  const duration = parseInt(req.query.duration || "5000", 10); // ms
-  const load = parseInt(req.query.load || "85", 10); // %
+  const duration = parseInt(req.query.duration || "5000", 10); 
+  const load = parseInt(req.query.load || "85", 10); 
   const cores = os.cpus().length;
 
   try {

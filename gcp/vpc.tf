@@ -48,7 +48,7 @@ module "vpc_network" {
 }
 
 
-# Serverless VPC Access Connector
+
 
 resource "google_vpc_access_connector" "serverless_vpc" {
   name          = "${local.vpc_name}-vpc-connector"

@@ -15,7 +15,7 @@ resource "google_monitoring_notification_channel" "email" {
   }
 }
 
-# SLACK CHANNEL
+
 resource "google_monitoring_notification_channel" "slack" {
   display_name = "Slack Alerts"
   type         = "slack"
@@ -30,7 +30,7 @@ resource "google_monitoring_notification_channel" "slack" {
 }
 
 
-# LOG-BASED METRIC (Count Errors)
+
 resource "google_logging_metric" "app_error_metric" {
   name   = "app_error_count"
   filter = <<EOT
@@ -45,7 +45,7 @@ EOT
   }
 }
 
-# ALERT POLICY - CPU > 70% (Warning) → Send to SLACK
+
 resource "google_monitoring_alert_policy" "cpu_warn" {
   display_name          = "Cloud Run CPU higher than 70% (Warning)"
   combiner             = "OR"
@@ -74,7 +74,7 @@ resource "google_monitoring_alert_policy" "cpu_warn" {
 }
 
 
-# ALERT POLICY - CPU > 80% (Critical) → Send to EMAIL
+
 resource "google_monitoring_alert_policy" "cpu_crit" {
   display_name          = "Cloud Run CPU is higher than 80% (Critical)"
   combiner             = "OR"

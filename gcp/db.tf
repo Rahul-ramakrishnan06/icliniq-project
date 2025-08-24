@@ -34,7 +34,7 @@ module "sql_db" {
 }
 
 
-# Create private service networking connection
+
 resource "google_service_networking_connection" "private_vpc_connection" {
   network                 = module.vpc_network.network_self_link
   service                 = "servicenetworking.googleapis.com"

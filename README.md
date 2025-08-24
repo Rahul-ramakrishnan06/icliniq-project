@@ -17,6 +17,14 @@ This repository contains the **iCliniq Project**, a Node.js-based backend deploy
 
 ### **2. Local Setup**
 ```bash
+#Configure the following environment variables with your local database values:
+DB_HOST
+DB_USER
+DB_PASSWORD
+DB_NAME
+PORT #optional
+```
+```bash
 # Clone the repository
 git clone https://github.com/Rahul-ramakrishnan06/icliniq-project.git
 cd icliniq-project/app
@@ -27,6 +35,8 @@ npm install
 # Run the app locally
 npm run dev
 ```
+Note: The schema will be automatically created at startup.
+
 The app will start on **http://localhost:8080**.
 
 ### **3. Build & Push Docker Image**
@@ -60,20 +70,13 @@ Terraform provisions:
 ### **5. CI/CD Deployment**
 This project uses **GitHub Actions** workflows:
 
-- `build.yml` → Builds, scans, and deploys the Node.js app to Cloud Run.
+- `deploy.yml` → Builds, scans, and deploys the Node.js app to Cloud Run.
 - `infra-setup.yaml` → Manages Terraform provisioning and security scans.
 
 Automatic deployment triggers:
 ```bash
-# App changes
-git add app/
-git commit -m "Updated app"
-git push origin master
-
-# Infra changes
-git add gcp/
-git commit -m "Updated infrastructure"
-git push origin master
+branch: master only 
+  on: push,merge,manual trigger
 ```
 
 ---
@@ -116,7 +119,7 @@ Alerting is configured in **gcp/monitoring.tf** using **Google Cloud Monitoring*
 | **Error Logs** | High app error count | Email + Slack |
 
 ### **3. Slack Integration**
-- Uses a **Slack Bot OAuth Token** (`var.slack_token`) securely stored in **Secret Manager**.
+- Uses a **Slack Bot OAuth Token** (`var.slack_token`) [can be stored in repository secrets when automating terraform provisioning].
 - Sends proactive alerts to a dedicated Slack channel.
 
 ### **4. Email Alerts**
@@ -136,7 +139,7 @@ Alerting is configured in **gcp/monitoring.tf** using **Google Cloud Monitoring*
 - **Container Registry** → Google Artifact Registry
 - **Monitoring** → Google Cloud Monitoring + Slack + Email
 - **CI/CD** → GitHub Actions
-- **Security Scanning** → Trivy, npm audit, tfsec, tflint
+- **Security Scanning** → Trivy, npm audit, tfsec
 
 ---
 
@@ -153,7 +156,7 @@ icliniq-project/
 │   ├── secrets.tf         # Secret Manager integration
 │   └── db.tf              # Cloud SQL DB
 └── .github/workflows/     # CI/CD workflows
-    ├── build.yml          # Build & Deploy app
+    ├── deploy.yml          # Build & Deploy app
     └── infra-setup.yaml   # Infra provisioning
 ```
 
@@ -162,7 +165,7 @@ icliniq-project/
 ## Summary
 
 This project demonstrates:
-- Automated **infrastructure provisioning** using Terraform.
+- **infrastructure provisioning** using Terraform.
 - **Secure CI/CD pipelines** using GitHub Actions.
 - **Scalable deployment** via Cloud Run.
 - Proactive **monitoring and alerting** for app health and performance.

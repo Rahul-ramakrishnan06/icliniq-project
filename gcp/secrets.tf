@@ -1,4 +1,4 @@
-# DB User Secret
+
 resource "google_secret_manager_secret" "db_user" {
   project   = local.project_id
   secret_id = "DB_USER"
@@ -8,7 +8,7 @@ resource "google_secret_manager_secret" "db_user" {
   }
 }
 
-# DB User Secret Value
+
 resource "google_secret_manager_secret_version" "db_user_version" {
   secret      = google_secret_manager_secret.db_user.id
   secret_data = local.db_user
@@ -23,7 +23,7 @@ resource "random_password" "db_password" {
   override_special = "_%@!" 
 }
 
-# DB Password Secret
+
 resource "google_secret_manager_secret" "db_password" {
   project   = local.project_id
   secret_id = "DB_PASSWORD"

@@ -73,7 +73,7 @@ resource "google_cloud_run_service" "default" {
 }
 
 
-# Allow unauthenticated access to Cloud Run Service
+
 resource "google_cloud_run_service_iam_member" "no_auth" {
   location = local.region
   project  = local.project_id

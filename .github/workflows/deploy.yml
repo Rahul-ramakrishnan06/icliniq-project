@@ -13,7 +13,7 @@ env:
   GCP_REGION: ${{ secrets.GCP_REGION }}       
   GCR_REPO_NAME: ${{ secrets.GCR_REPO_NAME }}        
   IMAGE_NAME: icliniq-node-app
-  TF_BUCKET: ${{ secrets.TF_BUCKET }} # <-- GCS bucket for TF state
+  TF_BUCKET: ${{ secrets.TF_BUCKET }} 
   TF_PREFIX: terraform/state 
   SERVICE_NAME: icliniq-project-cloud-run
   
