@@ -41,10 +41,11 @@ jobs:
 
       - name: Terraform Init
         working-directory: gcp
-        run: terraform init \
-            -backend-config="bucket=${{ secrets.TF_BUCKET }}" \
-            -backend-config="prefix=terraform/state" \
-            -backend-config="project=${{ secrets.PROJECT_ID }}"
+        run: |
+          terraform init \
+          -backend-config="bucket=${{ secrets.TF_BUCKET }}" \
+          -backend-config="prefix=terraform/state" \
+          -backend-config="project=${{ secrets.PROJECT_ID }}"
 
       - name: Terraform FMT Check
         working-directory: gcp
